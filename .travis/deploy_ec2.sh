@@ -7,4 +7,4 @@ export TF_VAR_private_deploy_key=$HOME/.ssh/ec2_deploy_key
 
 cd tf
 terraform init $tf_init_cli_options
-terraform apply $tf_init_cli_options
+terraform apply $tf_apply_cli_options
