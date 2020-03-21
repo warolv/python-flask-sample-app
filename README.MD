@@ -33,6 +33,8 @@
 
 3. Add credentials for DockerHub and AWS's IAM user's credentials for terraform:
 
+![travis-env](images/2.png)
+
 ## First part
 
 1. Create a .travis.yaml in root of your repository
@@ -68,6 +70,12 @@ docker push $TRAVIS_REPO_SLUG
 
 ```
 
+![dockerhub](images/1.png)
+
+![travis-ui](images/3.png)
+
+![travis-build-log](images/4.png)
+
 ## Second part
 
 1. For second part I created directory tf with all needed scripts to provision EC2 instance and run created container on this instance
@@ -99,6 +107,10 @@ after_success:
 5. Connect using SSH to provisioned instance using generated ssh-key and terraform 'provisioners' then download docker for this instance and execute 'docker run' with last created image
 
 6. To access app we can use Public Ip of provisioned instance
+
+![aws-ec2](images/5.png)
+
+![app-url](images/6.png)
 
 ## Things to improve
 
