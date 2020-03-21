@@ -1,3 +1,5 @@
+![ci-cd](images/ci-cd.png)
+
 ## CI/CD using travis ci and terraform and example application written in Python/Flask
 
 # Objective
