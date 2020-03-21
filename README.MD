@@ -53,6 +53,19 @@ after_success:
 
 Travis CI will run UT and then if everything ok will use deploy_dockerhub.sh bash script to push container to docker hub
 
+```
+#!/bin/sh
+docker login -u $DOCKER_USER -p $DOCKER_PASS
+if [ "$TRAVIS_BRANCH" = "master" ]; then
+    TAG="latest"
+else
+    TAG="$TRAVIS_BRANCH"
+fi
+docker build -f Dockerfile -t $TRAVIS_REPO_SLUG:$TAG -t $TRAVIS_REPO_SLUG:$TRAVIS_JOB_ID .
+docker push $TRAVIS_REPO_SLUG
+
+```
+
 ## Second part
 
 1. For second part I created directory tf with all needed scripts to provision EC2 instance and run created container on this instance
@@ -82,3 +95,15 @@ after_success:
 4. To connect to newly provisioned EC2 instance I am generating ssh key and adding this key as a terraform resource "aws_key_pair" 
 
 5. Connect using SSH to provisioned instance using generated ssh-key and terraform 'provisioners' then download docker for this instance and execute 'docker run' with last created image
+
+6. To access app we can use Public Ip of provisioned instance
+
+## Things to improve
+
+This CI/CD flow was built for demonstration purposes only, to show how you can create and deploy newly created container to newly provisioned instance using Travis CI and terraform.
+In real use case we will use ELB(with public IP and dns name) which will stand before app, ELB will be in public subnetwork, application will we in private subnetwork and will not have public ip.
+
+Each deploy we will deploy new container then old container will be terminated, to avoid downtime.
+
+The more realistic use case you can find in my repository: https://github.com/warolv/terraform-playground
+Deploy a simple 'Hello World!' app on AWS with terraform and using Application Load Balancer(ALB) and Fixed Autoscaling Group
