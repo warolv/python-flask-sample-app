@@ -72,8 +72,6 @@ docker push $TRAVIS_REPO_SLUG
 
 ![dockerhub](images/1.png)
 
-![travis-ui](images/3.png)
-
 ![travis-build-log](images/4.png)
 
 ## Second part
